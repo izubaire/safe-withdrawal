@@ -6,6 +6,7 @@ import { MicroserviceController } from './microservice/microservice.controller';
 import { MicroserviceModule } from './microservice/microservice.module';
 import { TransactionController } from './transaction/transaction.controller';
 import { TransactionModule } from './transaction/transaction.module';
+import { TransactionService } from './transaction/transaction.service';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { TransactionModule } from './transaction/transaction.module';
     TransactionModule
   ],
   controllers: [AppController, MicroserviceController, TransactionController],
-  providers: [AppService],
+  providers: [AppService, TransactionService],
 })
 export class AppModule {}
