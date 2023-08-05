@@ -1,0 +1,7 @@
+npx sequelize-cli init
+
+# npx sequelize-cli migration:generate --name <table_name>
+npx sequelize-cli model:generate --name transactions --attributes walletAddress:string,amount:decimal,chainId:integer,userId:integer,transactionStatus:string
+
+
+npx sequelize-cli db:migrate

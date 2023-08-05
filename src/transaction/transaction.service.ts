@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ethers } from 'ethers'
 import { EthersAdapter, SafeTransactionOptionalProps } from '@safe-global/protocol-kit'
 import { SafeTransactionDataPartial } from '@safe-global/safe-core-sdk-types'
 import SafeApiKit from '@safe-global/api-kit'
 import Safe, { SafeFactory } from '@safe-global/protocol-kit'
 import { SafeAccountConfig } from '@safe-global/protocol-kit'
+import { Sequelize } from 'sequelize';
+import { Transaction } from './transaction.entity';
+import sequelize from '../../sequelize.config';
 
 require('dotenv').config();
 
@@ -31,9 +34,17 @@ const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 
 
 @Injectable()
 export class TransactionService {
-    async main(walletAddress:string, price:string, chainId:string, userId:string): Promise<any> {
+    async createTransaction(data: any): Promise<Transaction> {
+        return Transaction.create(data); 
+    }
+    async findTransactionsById(id: number): Promise<Transaction[]> {
+        console.log("inside transaction by id");
+        return Transaction.findAll({
+          where: { id },
+        });
+    }
+    async main({walletAddress, amount:price, chainId, userId}): Promise<any> {
         console.log("inside...");
-        
         // return `Transaction details: Wallet ID - ${walletAddress}, price - $${price}`
         
         const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
@@ -146,3 +157,18 @@ export class TransactionService {
     }
     
 }
+
+
+// @Injectable()
+// export class TransactionModel{
+//   constructor(@Inject('SEQUELIZE') private sequelize: Sequelize) {}
+// }
+
+// @Injectable()
+// export class TransactionModel {
+//   async createTransaction(data: Transaction): Promise<Transaction> {
+//     return Transaction.create(data);
+//   }
+
+  
+// }

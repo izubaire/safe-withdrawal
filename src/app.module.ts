@@ -7,6 +7,7 @@ import { MicroserviceModule } from './microservice/microservice.module';
 import { TransactionController } from './transaction/transaction.controller';
 import { TransactionModule } from './transaction/transaction.module';
 import { TransactionService } from './transaction/transaction.service';
+// import { sequelize } from '../sequelize.config'
 
 @Module({
   imports: [
