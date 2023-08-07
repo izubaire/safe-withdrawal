@@ -12,9 +12,4 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post()
-  createUser(@Body() createUserRequest: CreateTransactionRequest) {
-    this.appService.createUser(createUserRequest)
-  }
-
 }

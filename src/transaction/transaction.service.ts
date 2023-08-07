@@ -8,9 +8,13 @@ import { SafeAccountConfig } from '@safe-global/protocol-kit'
 import { Sequelize } from 'sequelize';
 import { Transaction } from './transaction.entity';
 import sequelize from '../../sequelize.config';
+import { ClientProxy } from '@nestjs/microservices';
 
 require('dotenv').config();
 
+
+// DEVELOPMENT
+const development = process.env.DEVELOPMENT
 
 // https://chainlist.org/?search=goerli&testnets=true
 const RPC_URL = 'https://rpc.ankr.com/eth_goerli'
@@ -34,6 +38,25 @@ const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 
 
 @Injectable()
 export class TransactionService {
+    constructor(
+        @Inject('KYCCHECK') private readonly kycClient: ClientProxy,
+        @Inject('TRANSACTIONSTATUS') private readonly transactionClient: ClientProxy,
+        @Inject('LEDGERFUNDS') private readonly ledgerClient: ClientProxy,
+    ) {}
+
+    async kycCheck(data: any): Promise<any> {
+        if(development) return { tokenAddress: "0x" };
+        return this.kycClient.emit('kyc_check', data)
+    }
+    async transactionStatus(isConfirmed: boolean): Promise<any> {
+        if(development) return isConfirmed;
+        return this.kycClient.emit('transaction_status', isConfirmed)
+    }
+    async ledgerFunds(userId, chainId, tokenAddress, transactionHash?): Promise<any> {
+        if(development) return true;
+        this.kycClient.emit('ledger_funds', {userId, chainId, tokenAddress, transactionHash})
+    }
+
     async createTransaction(data: any): Promise<Transaction> {
         return Transaction.create(data); 
     }
@@ -44,7 +67,7 @@ export class TransactionService {
         });
     }
     async main({walletAddress, amount:price, chainId, userId}): Promise<any> {
-        console.log("inside...");
+        // console.log("inside...");
         // return `Transaction details: Wallet ID - ${walletAddress}, price - $${price}`
         
         const safeFactory = await SafeFactory.create({ ethAdapter: ethAdapterOwner1 })
@@ -154,21 +177,10 @@ export class TransactionService {
         const afterBalance = await safeSdkOwner1.getBalance()
     
         console.log(`The final balance of the Safe: ${ethers.utils.formatUnits(afterBalance, 'ether')} ETH`)
+
+        return {
+            transactionHash: safeTxHash,
+        }
     }
     
 }
-
-
-// @Injectable()
-// export class TransactionModel{
-//   constructor(@Inject('SEQUELIZE') private sequelize: Sequelize) {}
-// }
-
-// @Injectable()
-// export class TransactionModel {
-//   async createTransaction(data: Transaction): Promise<Transaction> {
-//     return Transaction.create(data);
-//   }
-
-  
-// }
