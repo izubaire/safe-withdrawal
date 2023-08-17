@@ -9,22 +9,22 @@ import { TransactionService } from './transaction/transaction.service';
 
 @Module({
   imports: [
-    ClientsModule.register([
-      {
-        name: "KYCCHECK",
-        transport: Transport.TCP,
-      },
-      {
-        name: "TRANSACTIONSTATUS",
-        transport: Transport.TCP,
-        options: { port: 3001 },
-      },
-      {
-        name: "LEDGERFUNDS",
-        transport: Transport.TCP,
-        options: { port: 3002 },
-      },
-  ]),
+  //   ClientsModule.register([
+  //     {
+  //       name: "KYCCHECK",
+  //       transport: Transport.TCP,
+  //     },
+  //     {
+  //       name: "TRANSACTIONSTATUS",
+  //       transport: Transport.TCP,
+  //       options: { port: 3001 },
+  //     },
+  //     {
+  //       name: "LEDGERFUNDS",
+  //       transport: Transport.TCP,
+  //       options: { port: 3002 },
+  //     },
+  // ]),
     TransactionModule
   ],
   controllers: [AppController, TransactionController],

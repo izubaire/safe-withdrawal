@@ -39,22 +39,22 @@ const safeService = new SafeApiKit({ txServiceUrl, ethAdapter: ethAdapterOwner1 
 @Injectable()
 export class TransactionService {
     constructor(
-        @Inject('KYCCHECK') private readonly kycClient: ClientProxy,
-        @Inject('TRANSACTIONSTATUS') private readonly transactionClient: ClientProxy,
-        @Inject('LEDGERFUNDS') private readonly ledgerClient: ClientProxy,
+        // @Inject('KYCCHECK') private readonly kycClient: ClientProxy,
+        // @Inject('TRANSACTIONSTATUS') private readonly transactionClient: ClientProxy,
+        // @Inject('LEDGERFUNDS') private readonly ledgerClient: ClientProxy,
     ) {}
 
     async kycCheck(data: any): Promise<any> {
         if(development) return { tokenAddress: "0x" };
-        return this.kycClient.emit('kyc_check', data)
+        // return this.kycClient.emit('kyc_check', data)
     }
     async transactionStatus(isConfirmed: boolean): Promise<any> {
         if(development) return isConfirmed;
-        return this.kycClient.emit('transaction_status', isConfirmed)
+        // return this.kycClient.emit('transaction_status', isConfirmed)
     }
     async ledgerFunds(userId, chainId, tokenAddress, transactionHash?): Promise<any> {
         if(development) return true;
-        this.kycClient.emit('ledger_funds', {userId, chainId, tokenAddress, transactionHash})
+        // this.kycClient.emit('ledger_funds', {userId, chainId, tokenAddress, transactionHash})
     }
 
     async createTransaction(data: any): Promise<Transaction> {
