@@ -13,6 +13,7 @@ export class TransactionController {
     try {
       // Store Data in DB
       const newTransactionData = await this.transactionService.createTransaction(query);
+      return
       // Check KYC
       const kycCheck = await this.transactionService.kycCheck(query);
       if(!kycCheck) return { message: "Account is Suspended!" }
@@ -40,6 +41,19 @@ export class TransactionController {
       };
     } catch (error) {
       console.log(error);
+      return "Unexpected Error"      
+    }
+  }
+
+  @Post("/safeDeploy")
+  async deploySafe(): Promise<any> {
+    try {
+      this.transactionService.deploySafe();
+      console.log("inside safe deploy..");
+      
+      // const {  }
+    } catch (error) {
+      console.log(error.message);
       return "Unexpected Error"      
     }
   }

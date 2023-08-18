@@ -13,13 +13,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       amount: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.STRING
       },
       chainId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       transactionStatus: {
         type: Sequelize.STRING

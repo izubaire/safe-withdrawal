@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   transactions.init({
     walletAddress: DataTypes.STRING,
-    amount: DataTypes.DECIMAL,
-    chainId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+    amount: DataTypes.STRING,
+    chainId: DataTypes.STRING,
+    userId: DataTypes.STRING,
     transactionStatus: DataTypes.STRING
   }, {
     sequelize,
