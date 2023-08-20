@@ -24,6 +24,18 @@ module.exports = {
       transactionStatus: {
         type: Sequelize.STRING
       },
+      depositTransactionHash: {
+        type: Sequelize.STRING
+      },
+      safeWalletAddress: {
+        type: Sequelize.STRING
+      },
+      safeTransactionHash: {
+        type: Sequelize.STRING
+      },
+      isSignSafeTransactionHash: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

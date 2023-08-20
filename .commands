@@ -6,7 +6,6 @@ postgres=# create user superuser with encrypted password 'admin';
 postgres=# grant all privileges on database safe to superuser;
 
 # npx sequelize-cli migration:generate --name <table_name>
-npx sequelize-cli model:generate --name transactions --attributes walletAddress:string,amount:string,chainId:string,userId:string,transactionStatus:string
-
+npx sequelize-cli model:generate --name transactions --attributes walletAddress:string,amount:string,chainId:string,userId:string,transactionStatus:string,depositTransactionHash:string,safeWalletAddress:string,safeTransactionHash:string,isSignSafeTransactionHash:boolean
 
 npx sequelize-cli db:migrate

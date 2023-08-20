@@ -4,4 +4,6 @@ export class CreateTransactionDto {
   chainId: string;
   userId: string;
   transactionStatus: string;
+  safeWalletAddress: string;
+  transactionHash: string;
 }

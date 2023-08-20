@@ -18,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     amount: DataTypes.STRING,
     chainId: DataTypes.STRING,
     userId: DataTypes.STRING,
-    transactionStatus: DataTypes.STRING
+    transactionStatus: DataTypes.STRING,
+    depositTransactionHash: DataTypes.STRING,
+    safeWalletAddress: DataTypes.STRING,
+    safeTransactionHash: DataTypes.STRING,
+    isSignSafeTransactionHash: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'transactions',

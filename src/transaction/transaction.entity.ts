@@ -32,4 +32,32 @@ export class Transaction extends Model {
     defaultValue: "Pending"
   })
   transactionStatus: string;
+
+  @Column({
+    type: DataType.STRING,
+    // allowNull: false,
+    // defaultValue: ""
+  })
+  safeWalletAddress: string;
+
+  @Column({
+    type: DataType.STRING,
+    // allowNull: false,
+    // defaultValue: ""
+  })
+  depositTransactionHash: string;
+
+  @Column({
+    type: DataType.STRING,
+    // allowNull: false,
+    // defaultValue: ""
+  })
+  safeTransactionHash: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  })
+  isSignSafeTransactionHash: boolean;
 }
